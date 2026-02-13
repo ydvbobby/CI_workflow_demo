@@ -1,0 +1,25 @@
+name: Python CI
+
+on: push
+
+jobs:
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 
+        uses: actions/setup-python2v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependecies
+        run: |
+           pip install flake8
+
+      - name: Run flake8 link
+        run: | 
+           flake8 .
+      
