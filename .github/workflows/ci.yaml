@@ -4,7 +4,7 @@ on: push
 
 jobs:
 
-  lint:
+  linting:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -22,4 +22,19 @@ jobs:
       - name: Run flake8 link
         run: | 
            flake8 .
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with : 
+          Python-version: "3.11"
+
+      - name: Run test
+        steps:
+          run: | 
+            python -m unittest discover
       
