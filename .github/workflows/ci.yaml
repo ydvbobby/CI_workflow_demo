@@ -5,7 +5,14 @@ on: push
 jobs:
 
   linting:
+
     runs-on: ubuntu-latest
+
+    stratergy:
+      matrix:
+        os: [ubuntu-latest,windows-latest]
+        Python-version: ["3.11","3.9"]
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,7 +30,7 @@ jobs:
         run: | 
            flake8 .
   testing:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,7 +38,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with : 
-          Python-version: "3.11"
+          Python-version: ${{matrix.Python-version}}
 
       - name: Run test
         run: | 
